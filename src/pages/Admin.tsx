@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useAuth } from '@/contexts/AuthContext';
+import { useCurrency } from '@/contexts/CurrencyContext';
 import { storage } from '@/lib/storage';
 import { Car, CarCategory, CarStatus, Booking } from '@/types/car';
 import { toast } from 'sonner';
@@ -14,6 +15,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 const Admin = () => {
   const { isAdmin } = useAuth();
+  const { formatPrice } = useCurrency();
   const navigate = useNavigate();
   const [cars, setCars] = useState<Car[]>([]);
   const [bookings, setBookings] = useState<Booking[]>([]);
@@ -166,7 +168,7 @@ const Admin = () => {
                     <div>
                       <h3 className="font-semibold">{car.name}</h3>
                       <p className="text-sm text-muted-foreground">
-                        {booking.type} - ${booking.totalPrice.toLocaleString()}
+                        {booking.type} - {formatPrice(booking.totalPrice)}
                       </p>
                       <p className="text-xs text-muted-foreground">
                         {new Date(booking.createdAt).toLocaleString()}

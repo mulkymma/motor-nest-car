@@ -9,6 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useAuth } from '@/contexts/AuthContext';
 import { useCart } from '@/contexts/CartContext';
+import { useCurrency } from '@/contexts/CurrencyContext';
 import { toast } from 'sonner';
 import { Calendar, Clock, Fuel, Settings } from 'lucide-react';
 
@@ -17,6 +18,7 @@ const CarDetail = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
   const { addToCart } = useCart();
+  const { formatPrice } = useCurrency();
   const [car, setCar] = useState<Car | null>(null);
   const [rentalDays, setRentalDays] = useState(1);
 
@@ -139,7 +141,7 @@ const CarDetail = () => {
               <div className="flex items-center justify-between mb-4">
                 <span className="text-muted-foreground">Total</span>
                 <span className="text-2xl font-bold text-primary">
-                  ${(car.pricePerDay * rentalDays).toLocaleString()}
+                  {formatPrice(car.pricePerDay * rentalDays)}
                 </span>
               </div>
               <Button className="w-full" onClick={handleRent} disabled={car.status !== 'Available'}>
@@ -154,7 +156,7 @@ const CarDetail = () => {
               <div className="flex items-center justify-between mb-4">
                 <span className="text-muted-foreground">Price</span>
                 <span className="text-2xl font-bold">
-                  ${car.salePrice.toLocaleString()}
+                  {formatPrice(car.salePrice)}
                 </span>
               </div>
               <Button className="w-full" variant="outline" onClick={handleBuy} disabled={car.status !== 'Available'}>

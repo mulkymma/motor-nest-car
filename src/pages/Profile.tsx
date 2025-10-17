@@ -3,11 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { useAuth } from '@/contexts/AuthContext';
+import { useCurrency } from '@/contexts/CurrencyContext';
 import { storage } from '@/lib/storage';
 import { Booking, Car } from '@/types/car';
 
 const Profile = () => {
   const { user } = useAuth();
+  const { formatPrice } = useCurrency();
   const navigate = useNavigate();
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [cars, setCars] = useState<Car[]>([]);
@@ -70,7 +72,7 @@ const Profile = () => {
                     </p>
                     
                     <p className="text-xl font-bold text-primary">
-                      ${booking.totalPrice.toLocaleString()}
+                      {formatPrice(booking.totalPrice)}
                     </p>
                   </div>
                 </div>

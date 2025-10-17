@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { useCart } from '@/contexts/CartContext';
 import { useAuth } from '@/contexts/AuthContext';
+import { useCurrency } from '@/contexts/CurrencyContext';
 import { storage } from '@/lib/storage';
 import { Car, Booking } from '@/types/car';
 import { toast } from 'sonner';
@@ -12,6 +13,7 @@ import { Trash2 } from 'lucide-react';
 const Cart = () => {
   const { cart, removeFromCart, clearCart, cartTotal } = useCart();
   const { user } = useAuth();
+  const { formatPrice } = useCurrency();
   const navigate = useNavigate();
   const [cars, setCars] = useState<Car[]>([]);
 
@@ -95,7 +97,7 @@ const Cart = () => {
                       {item.type === 'rent' ? `Rental - ${item.rentalDays} days` : 'Purchase'}
                     </p>
                     <p className="text-lg font-bold text-primary">
-                      ${item.totalPrice.toLocaleString()}
+                      {formatPrice(item.totalPrice)}
                     </p>
                   </div>
                   
@@ -119,16 +121,16 @@ const Cart = () => {
             <div className="space-y-2 mb-4">
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Subtotal</span>
-                <span>${cartTotal.toLocaleString()}</span>
+                <span>{formatPrice(cartTotal)}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Tax</span>
-                <span>${(cartTotal * 0.1).toLocaleString()}</span>
+                <span>{formatPrice(cartTotal * 0.1)}</span>
               </div>
               <div className="border-t border-border pt-2 mt-2">
                 <div className="flex justify-between text-lg font-bold">
                   <span>Total</span>
-                  <span className="text-primary">${(cartTotal * 1.1).toLocaleString()}</span>
+                  <span className="text-primary">{formatPrice(cartTotal * 1.1)}</span>
                 </div>
               </div>
             </div>

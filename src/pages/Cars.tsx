@@ -7,6 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { useNavigate } from 'react-router-dom';
+import { useCurrency } from '@/contexts/CurrencyContext';
 import { Search } from 'lucide-react';
 
 const Cars = () => {
@@ -14,6 +15,7 @@ const Cars = () => {
   const [filteredCars, setFilteredCars] = useState<CarType[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
+  const { formatPrice } = useCurrency();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -92,11 +94,11 @@ const Cars = () => {
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm text-muted-foreground">From</p>
-                    <p className="text-lg font-bold text-primary">${car.pricePerDay}/day</p>
+                    <p className="text-lg font-bold text-primary">{formatPrice(car.pricePerDay)}/day</p>
                   </div>
                   <div className="text-right">
                     <p className="text-sm text-muted-foreground">Buy at</p>
-                    <p className="text-lg font-bold">${car.salePrice.toLocaleString()}</p>
+                    <p className="text-lg font-bold">{formatPrice(car.salePrice)}</p>
                   </div>
                 </div>
                 

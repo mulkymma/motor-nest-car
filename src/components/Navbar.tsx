@@ -3,10 +3,13 @@ import { Button } from '@/components/ui/button';
 import { ShoppingCart, User, LogOut, Shield } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useCart } from '@/contexts/CartContext';
+import { useCurrency } from '@/contexts/CurrencyContext';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 export const Navbar = () => {
   const { user, logout, isAdmin } = useAuth();
   const { cart } = useCart();
+  const { currency, setCurrency } = useCurrency();
   const navigate = useNavigate();
 
   return (
@@ -20,6 +23,16 @@ export const Navbar = () => {
           <Link to="/cars" className="text-foreground hover:text-primary transition">
             Browse Cars
           </Link>
+
+          <Select value={currency} onValueChange={(value: 'USD' | 'KES') => setCurrency(value)}>
+            <SelectTrigger className="w-24">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="USD">USD</SelectItem>
+              <SelectItem value="KES">KES</SelectItem>
+            </SelectContent>
+          </Select>
           
           {user ? (
             <>
