@@ -6,7 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { CartProvider } from "@/contexts/CartContext";
 import { CurrencyProvider } from "@/contexts/CurrencyContext";
-import { Navbar } from "@/components/Navbar";
+import Navbar from "@/components/Navbar";
 import Home from "./pages/Home";
 import Cars from "./pages/Cars";
 import CarDetail from "./pages/CarDetail";
@@ -16,6 +16,7 @@ import Cart from "./pages/Cart";
 import Profile from "./pages/Profile";
 import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
+import Footer from "@/components/Footer";
 
 const queryClient = new QueryClient();
 
@@ -40,7 +41,9 @@ const App = () => (
                 <Route path="/admin" element={<Admin />} />
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                 <Route path="*" element={<NotFound />} />
-              </Routes>
+              </Routes> 
+              <Footer /> 
+
             </BrowserRouter>
           </CurrencyProvider>
         </CartProvider>

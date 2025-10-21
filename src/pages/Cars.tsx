@@ -1,8 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, ChangeEvent } from 'react';
 import { Car as CarType, CarCategory } from '@/types/car';
 import { storage } from '@/lib/storage';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -17,6 +16,9 @@ const Cars = () => {
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
   const { formatPrice } = useCurrency();
   const navigate = useNavigate();
+
+  // Wrapper to allow children for SelectItem when library types don't include children
+  const SelectItemWrapper = (props: any) => <SelectItem {...props} />;
 
   useEffect(() => {
     const loadedCars = storage.getCars();
@@ -49,27 +51,31 @@ const Cars = () => {
         <div className="flex flex-col md:flex-row gap-4 mb-8">
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-            <Input
+            <input
+              className="w-full pl-10 pr-3 py-2 border rounded"
               placeholder="Search cars..."
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10"
+              onChange={(e: ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}
             />
           </div>
-          
-          <Select value={categoryFilter} onValueChange={setCategoryFilter}>
-            <SelectTrigger className="w-full md:w-48">
-              <SelectValue placeholder="Category" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Categories</SelectItem>
-              <SelectItem value="Sport">Sport</SelectItem>
-              <SelectItem value="SUV">SUV</SelectItem>
-              <SelectItem value="Sedan">Sedan</SelectItem>
-              <SelectItem value="Luxury">Luxury</SelectItem>
-              <SelectItem value="Electric">Electric</SelectItem>
-            </SelectContent>
-          </Select>
+
+          <div>
+            <Select value={categoryFilter} onValueChange={setCategoryFilter}>
+              {/* @ts-ignore: SelectTrigger typing doesn't include children in the library types */}
+              <SelectTrigger className="w-full md:w-48">
+                <SelectValue placeholder="Category" />
+              </SelectTrigger>
+              {/* @ts-ignore: SelectContent typing doesn't include children in the library types */}
+              <SelectContent>
+                <SelectItemWrapper value="all">All Categories</SelectItemWrapper>
+                <SelectItemWrapper value="Sport">Sport</SelectItemWrapper>
+                <SelectItemWrapper value="SUV">SUV</SelectItemWrapper>
+                <SelectItemWrapper value="Sedan">Sedan</SelectItemWrapper>
+                <SelectItemWrapper value="Luxury">Luxury</SelectItemWrapper>
+                <SelectItemWrapper value="Electric">Electric</SelectItemWrapper>
+              </SelectContent>
+            </Select>
+          </div>
         </div>
 
         {/* Cars Grid */}

@@ -1,3 +1,5 @@
+// car.ts
+
 export type CarCategory = 'Sport' | 'SUV' | 'Sedan' | 'Luxury' | 'Electric';
 export type CarStatus = 'Available' | 'Rented' | 'Sold';
 
@@ -14,7 +16,27 @@ export interface Car {
   year: number;
   transmission: string;
   fuel: string;
+  quantity: number;
 }
+
+// ✅ Example car data
+export const cars: Car[] = [
+  {
+    id: '1',
+    name: 'Toyota Corolla',
+    category: 'Sedan',
+    image: '/cars/toyota.jpg',
+    pricePerDay: 5000,
+    salePrice: 4500,
+    description: 'A compact, fuel-efficient car.',
+    features: ['Air Conditioning', 'Bluetooth', 'Backup Camera'],
+    year: 2023,
+    transmission: 'Automatic',
+    fuel: 'Petrol',
+    quantity: 3,
+    status: 'Available', // ✅ Matches CarStatus type
+  },
+];
 
 export interface CartItem {
   carId: string;

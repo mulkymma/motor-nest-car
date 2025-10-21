@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, ReactNode } from 'react';
 
-type Currency = 'USD' | 'KES';
+export type Currency = 'USD' | 'KES';
 
 interface CurrencyContextType {
   currency: Currency;
