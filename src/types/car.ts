@@ -1,10 +1,12 @@
 // car.ts
 
 export type CarCategory = 'Sport' | 'SUV' | 'Sedan' | 'Luxury' | 'Electric';
-export type CarStatus = 'Available' | 'Rented' | 'Sold';
+export type CarStatus = 'Available' | 'Rented' | 'Sold' | 'In Service';
 
 export interface Car {
   id: string;
+  brand?: string;
+  model?: string;
   name: string;
   category: CarCategory;
   image: string;
@@ -17,6 +19,18 @@ export interface Car {
   transmission: string;
   fuel: string;
   quantity: number;
+  // Location as geo coords or human readable
+  location?: {
+    lat: number;
+    lng: number;
+    label?: string;
+  };
+  // Demand tracking
+  views?: number;
+  timesRented?: number;
+  // Service tracking
+  lastServiceDate?: string; // ISO date
+  nextServiceDue?: string; // ISO date
 }
 
 // ✅ Example car data

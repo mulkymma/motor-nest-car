@@ -26,6 +26,11 @@ const CarDetail = () => {
     const cars = storage.getCars();
     const foundCar = cars.find(c => c.id === id);
     setCar(foundCar || null);
+    if (foundCar) {
+      storage.incrementView(foundCar.id);
+      // update local state with incremented count
+      setCar({ ...foundCar, views: (foundCar.views || 0) + 1 });
+    }
   }, [id]);
 
   if (!car) {
@@ -33,6 +38,10 @@ const CarDetail = () => {
   }
 
   const handleRent = () => {
+    if (car?.status === 'In Service') {
+      toast.error('This car is currently in service and unavailable');
+      return;
+    }
     if (!user) {
       toast.error('Please login to rent a car');
       navigate('/login');
@@ -45,9 +54,14 @@ const CarDetail = () => {
       rentalDays,
       totalPrice: car.pricePerDay * rentalDays
     });
+    storage.incrementRent(car.id);
   };
 
   const handleBuy = () => {
+    if (car?.status === 'In Service') {
+      toast.error('This car is currently in service and unavailable');
+      return;
+    }
     if (!user) {
       toast.error('Please login to buy a car');
       navigate('/login');
@@ -110,6 +124,14 @@ const CarDetail = () => {
                 </div>
               </div>
             </div>
+
+            {/* Location */}
+            {car.location && (
+              <div className="mb-6">
+                <h3 className="text-lg font-semibold mb-2">Location</h3>
+                <p className="text-sm text-muted-foreground">{car.location.label} ({car.location.lat.toFixed(3)}, {car.location.lng.toFixed(3)})</p>
+              </div>
+            )}
 
             {/* Features */}
             <div className="mb-6">

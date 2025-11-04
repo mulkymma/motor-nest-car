@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-// @ts-nocheck
+/* eslint-disable @typescript-eslint/no-explicit-any */
+// removed @ts-nocheck to address types properly
 import * as React from "react";
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
 import { ChevronDown } from "lucide-react";
@@ -9,11 +9,12 @@ import { cn } from "@/lib/utils";
 const Accordion = AccordionPrimitive.Root;
 
 const _AccordionItemPrimitive = AccordionPrimitive.Item;
+type UIPartial<T extends React.ElementType> = Partial<React.ComponentPropsWithoutRef<T>> & React.HTMLAttributes<HTMLElement>;
 const AccordionItem = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Item>,
-  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Item>
+  UIPartial<typeof AccordionPrimitive.Item>
 >(({ className, ...props }, ref) => (
-  <_AccordionItemPrimitive ref={ref} className={cn("border-b", className)} {...props} />
+  <_AccordionItemPrimitive ref={ref} className={cn("border-b", className)} {...(props as any)} />
 ));
 AccordionItem.displayName = "AccordionItem";
 

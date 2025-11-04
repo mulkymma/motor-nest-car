@@ -17,6 +17,53 @@ export const storage = {
   saveCars: (cars: Car[]) => {
     localStorage.setItem(CARS_KEY, JSON.stringify(cars));
   },
+
+  // Demand tracking
+  incrementView: (carId: string) => {
+    const cars = storage.getCars();
+    const idx = cars.findIndex(c => c.id === carId);
+    if (idx === -1) return;
+    cars[idx].views = (cars[idx].views || 0) + 1;
+    storage.saveCars(cars);
+  },
+
+  incrementRent: (carId: string) => {
+    const cars = storage.getCars();
+    const idx = cars.findIndex(c => c.id === carId);
+    if (idx === -1) return;
+    cars[idx].timesRented = (cars[idx].timesRented || 0) + 1;
+    storage.saveCars(cars);
+  },
+
+  // Brands and budget helpers
+  getBrands: (): string[] => {
+    const cars = storage.getCars();
+    const brands = Array.from(new Set(cars.map(c => c.brand).filter(Boolean) as string[]));
+    return brands;
+  },
+
+  getCarsWithinBudget: (maxPerDay: number): Car[] => {
+    const cars = storage.getCars();
+    return cars.filter(c => c.pricePerDay <= maxPerDay && c.status === 'Available');
+  },
+
+  // Service checks — mark cars 'In Service' if nextServiceDue is past today
+  checkAndMarkService: () => {
+    const cars = storage.getCars();
+    const today = new Date();
+    let changed = false;
+    cars.forEach(c => {
+      if (c.nextServiceDue) {
+        const due = new Date(c.nextServiceDue);
+        if (due <= today && c.status !== 'In Service') {
+          c.status = 'In Service';
+          changed = true;
+        }
+      }
+    });
+    if (changed) storage.saveCars(cars);
+    return changed;
+  },
   
   // Current User
   getCurrentUser: (): User | null => {

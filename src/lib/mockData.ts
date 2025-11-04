@@ -3,6 +3,8 @@ import { Car } from '@/types/car';
 export const initialCars: Car[] = [
   {
     id: '1',
+    brand: 'Porsche',
+    model: '911 Turbo S',
     name: 'Porsche 911 Turbo S',
     category: 'Sport',
     image: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800',
@@ -13,10 +15,19 @@ export const initialCars: Car[] = [
     features: ['Twin-Turbo Engine', 'Sport Chrono Package', 'Premium Sound System', 'Adaptive Suspension'],
     year: 2024,
     transmission: 'Automatic',
-    fuel: 'Petrol'
+  fuel: 'Petrol',
+  quantity: 1,
+    
+    location: { lat: -1.2921, lng: 36.8219, label: 'Nairobi HQ' },
+    views: 120,
+    timesRented: 8,
+    lastServiceDate: '2025-07-01',
+    nextServiceDue: '2025-10-01'
   },
   {
     id: '2',
+    brand: 'Land Rover',
+    model: 'Range Rover Sport',
     name: 'Range Rover Sport',
     category: 'SUV',
     image: 'https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=800',
@@ -27,10 +38,19 @@ export const initialCars: Car[] = [
     features: ['All-Wheel Drive', 'Terrain Response', 'Meridian Audio', 'Panoramic Roof'],
     year: 2024,
     transmission: 'Automatic',
-    fuel: 'Diesel'
+  fuel: 'Diesel',
+  quantity: 2,
+    
+    location: { lat: -1.286389, lng: 36.817223, label: 'Nairobi Garage' },
+    views: 85,
+    timesRented: 12,
+    lastServiceDate: '2025-06-15',
+    nextServiceDue: '2025-12-15'
   },
   {
     id: '3',
+    brand: 'Mercedes',
+    model: 'S-Class',
     name: 'Mercedes S-Class',
     category: 'Luxury',
     image: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800',
@@ -41,10 +61,19 @@ export const initialCars: Car[] = [
     features: ['MBUX System', 'Air Suspension', 'Burmester Audio', 'Massage Seats'],
     year: 2024,
     transmission: 'Automatic',
-    fuel: 'Petrol'
+  fuel: 'Petrol',
+  quantity: 1,
+    
+    location: { lat: -1.3000, lng: 36.8000, label: 'Nairobi Downtown' },
+    views: 95,
+    timesRented: 5,
+    lastServiceDate: '2025-05-10',
+    nextServiceDue: '2025-11-10'
   },
   {
     id: '4',
+    brand: 'Tesla',
+    model: 'Model S Plaid',
     name: 'Tesla Model S Plaid',
     category: 'Electric',
     image: 'https://images.unsplash.com/photo-1617788138017-80ad40651399?w=800',
@@ -55,10 +84,19 @@ export const initialCars: Car[] = [
     features: ['1020 HP', 'Autopilot', '396 Mile Range', 'Yoke Steering'],
     year: 2024,
     transmission: 'Automatic',
-    fuel: 'Electric'
+  fuel: 'Electric',
+  quantity: 1,
+    
+    location: { lat: -1.2900, lng: 36.8200, label: 'Charging Bay' },
+    views: 210,
+    timesRented: 20,
+    lastServiceDate: '2025-08-01',
+    nextServiceDue: '2025-11-01'
   },
   {
     id: '5',
+    brand: 'BMW',
+    model: 'M4 Competition',
     name: 'BMW M4 Competition',
     category: 'Sport',
     image: 'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800',
@@ -69,10 +107,19 @@ export const initialCars: Car[] = [
     features: ['503 HP Engine', 'M Sport Differential', 'Carbon Fiber Roof', 'Track Mode'],
     year: 2024,
     transmission: 'Automatic',
-    fuel: 'Petrol'
+  fuel: 'Petrol',
+  quantity: 1,
+    
+    location: { lat: -1.2950, lng: 36.8250, label: 'Service Lot' },
+    views: 60,
+    timesRented: 4,
+    lastServiceDate: '2025-06-01',
+    nextServiceDue: '2025-12-01'
   },
   {
     id: '6',
+    brand: 'Audi',
+    model: 'Q7',
     name: 'Audi Q7',
     category: 'SUV',
     image: 'https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=800',
@@ -83,6 +130,13 @@ export const initialCars: Car[] = [
     features: ['7 Seats', 'Virtual Cockpit', 'Quattro AWD', 'Adaptive Cruise'],
     year: 2023,
     transmission: 'Automatic',
-    fuel: 'Diesel'
+  fuel: 'Diesel',
+  quantity: 1,
+    
+    location: { lat: -1.3050, lng: 36.8150, label: 'Airport Depot' },
+    views: 40,
+    timesRented: 2,
+    lastServiceDate: '2025-04-20',
+    nextServiceDue: '2025-10-20'
   }
 ];

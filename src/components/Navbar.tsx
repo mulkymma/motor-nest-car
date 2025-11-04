@@ -1,4 +1,4 @@
-// @ts-nocheck
+// removed @ts-nocheck to address types properly
 import * as React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";

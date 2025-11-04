@@ -13,9 +13,7 @@ import { toast } from 'sonner';
 import { Trash2, Edit, Plus } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
-const TabsListAny: any = TabsList;
-const TabsTriggerAny: any = TabsTrigger;
-const TabsContentAny: any = TabsContent;
+// Tabs components are typed via our UI wrappers; use them directly
 
 const Admin = () => {
   const { isAdmin } = useAuth();
@@ -72,11 +70,11 @@ const Admin = () => {
   return (
     <div className="container mx-auto px-4 py-12">
       <Tabs defaultValue="cars">
-        <TabsListAny>
-          <TabsTriggerAny value="cars">Manage Cars</TabsTriggerAny>
-          <TabsTriggerAny value="bookings">Bookings</TabsTriggerAny>
-        </TabsListAny>
-        <TabsContentAny value="cars" className="space-y-4 mt-6">
+        <TabsList>
+          <TabsTrigger value="cars">Manage Cars</TabsTrigger>
+          <TabsTrigger value="bookings">Bookings</TabsTrigger>
+        </TabsList>
+        <TabsContent value="cars" className="space-y-4 mt-6">
           <Button
             onClick={() =>
               setEditingCar({
@@ -267,9 +265,9 @@ const Admin = () => {
               </Card>
             ))}
           </div>
-        </TabsContentAny>
+        </TabsContent>
 
-        <TabsContentAny value="bookings" className="mt-6">
+        <TabsContent value="bookings" className="mt-6">
           <div className="space-y-4">
             {bookings.map((booking) => {
               const car = cars.find((c) => c.id === booking.carId);
@@ -293,7 +291,7 @@ const Admin = () => {
               );
             })}
           </div>
-        </TabsContentAny>
+  </TabsContent>
       </Tabs>
     </div>
   );
